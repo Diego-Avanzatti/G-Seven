@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+  <title>Usuarios</title>
+{% endblock %}
+
+{% block header %}
+  {% include "partes/header.html" %}
+{% endblock %}
+
+{% block styles %}
+  <!-- CSS específico para esta vista -->
+  <link rel="stylesheet" href="{% static 'css/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<main class="container my-5">
+  <h2 class="mb-4">Listado de Usuarios</h2>
+
+  {% if usuarios %}
+    <ul class="list-group">
+      {% for i in usuarios %}
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+          <div>
+            <strong>Usuario:</strong> {{ i.id }} - {{ i.username }} <br>
+            <strong>Nombre:</strong> {{ i.nombre }} {{ i.apellido }} <br>
+            <strong>Nacimiento:</strong> {{ i.fecha_nacimiento }} <br>
+            <strong>Email:</strong> {{ i.email }}
+          </div>
+          <a href="{{ i.id }}" class="btn btn-primary mt-2 mt-md-0">Abrir Perfil</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No hay registros de usuarios.</p>
+  {% endif %}
+</main>
+{% endblock %}
+
+{% block footer %}
+  {% include "partes/footer.html" %}
+{% endblock %}

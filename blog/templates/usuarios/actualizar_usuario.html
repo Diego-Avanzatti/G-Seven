@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+  <title>Actualizar</title>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/usuarios/actualizar_usuario.css' %}">
+{% endblock %}
+
+{% block header %}
+  {% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<main class="container my-5" style="max-width: 600px;">
+  <h2 class="mb-4">Actualizar</h2>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+  </form>
+</main>
+{% endblock %}
+
+{% block footer %}
+  {% include "partes/footer.html" %}
+{% endblock %}

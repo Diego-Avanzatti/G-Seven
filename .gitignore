@@ -1,0 +1,10 @@
+__pycache__/
+*.pd[cod]
+.log
+# media/
+.env
+.vscode/
+venv/
+env/
+.venv/
+entorno/

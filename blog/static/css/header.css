@@ -1,0 +1,20 @@
+.encabezado {
+  background-color: #222;
+  padding: 15px 0;
+  color: white;
+}
+
+.navbar-brand h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0 10px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}

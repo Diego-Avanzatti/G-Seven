@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+  <title>Posts</title>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
+{% endblock %}
+
+{% block header %}
+  {% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<main class="container my-5">
+
+  <div class="d-flex flex-wrap gap-3 mt-4 justify-content-start">
+    <a href="{% url 'apps.posts:agregar_post' %}" class="btn btn-success btn-principal">Agregar Post</a>
+
+    {% if user.is_superuser or user.is_staff %}
+      <a href="{% url 'apps.posts:agregar_plataforma' %}" class="btn btn-info btn-principal">Agregar Plataforma</a>
+      <a href="{% url 'apps.posts:agregar_genero' %}" class="btn btn-primary btn-principal">Agregar Género</a>
+    {% endif %}
+  </div>
+
+  {% if posts %}
+    <ul class="list-group mt-5">
+      {% for post in posts %}
+        <li class="list-group-item mb-4">
+          <h2>{{ post.titulo }}</h2>
+          <p>{{ post.descripcion }}</p>
+          <p><strong>Género:</strong> {{ post.genero }}</p>
+          <p><em>Publicado el {{ post.fecha }}</em></p>
+
+          {% if post.imagen_post %}
+            <img src="{{ post.imagen_post.url }}" alt="Imagen del post" class="img-fluid mb-3" style="max-width: 300px; height: auto;">
+          {% endif %}
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <a href="{% url 'apps.posts:post_individual' pk=post.pk %}" class="btn btn-outline-primary btn-sm">Ver</a>
+            <a href="{% url 'apps.posts:actualizar_post' pk=post.pk %}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{% url 'apps.posts:eliminar_post' pk=post.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted mt-4">No hay registros de posts.</p>
+  {% endif %}
+</main>
+{% endblock %}
+
+{% block footer %}
+  {% include "partes/footer.html" %}
+{% endblock %}

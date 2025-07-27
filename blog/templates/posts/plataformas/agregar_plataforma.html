@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Plataformas</title>
+{% endblock %}
+
+{% block header %}
+{% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <h2>Agregar Plataforma</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Aceptar</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include "partes/footer.html" %}
+{% endblock %}

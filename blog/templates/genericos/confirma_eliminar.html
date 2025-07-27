@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+  <title>Eliminar</title>
+{% endblock %}
+
+{% block styles %}
+ <link rel="stylesheet" href="{% static 'css/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/genericos/confirma_eliminar.css' %}">
+{% endblock %}
+
+{% block header %}
+  {% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<main class="container my-5" style="max-width: 400px;">
+  <h2 class="mb-4 text-center">Confirmar eliminación</h2>
+
+  <p class="text-center">¿Estás seguro de que querés eliminar?</p>
+
+  <form method="post" class="text-center">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger px-5">Sí, eliminar</button>
+  </form>
+</main>
+{% endblock %}
+
+{% block footer %}
+  {% include "partes/footer.html" %}
+{% endblock %}

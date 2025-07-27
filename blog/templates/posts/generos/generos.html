@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block titulo %}
+<title>Generos</title>
+{% endblock %}
+
+
+{% block header %}
+    {% include "partes/header.html" %}
+{%endblock%}
+
+
+{% block contenido %}
+<div class="contenido">
+    <ul>
+        {% for i in generos %}
+          <li>
+          <p><strong>Géneros:</strong> {{i.genero}}</p>
+          </li>
+          {% empty %}
+          <p>No hay registro</p>
+        {% endfor %}
+      </ul>
+</div>
+{%endblock%}
+
+{% block footer %}
+    {% include "partes/footer.html" %}
+{%endblock%}

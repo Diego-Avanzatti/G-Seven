@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+  <title>Mis Comentarios</title>
+{% endblock %}
+
+{% block header %}
+  {% include "partes/header.html" %}
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/usuarios/usuario.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<main class="container my-5">
+  <div class="perfil-usuario mb-4 p-3 bg-light rounded shadow-sm">
+    <h2>Perfil del Usuario</h2>
+    <p><strong>Nombre:</strong> {{ usuario.nombre }} {{ usuario.apellido }}</p>
+    <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
+    <img src="{{ usuario.imagen.url }}" alt="Imagen de perfil" class="img-perfil mt-3"/>
+  </div>
+
+  <div class="comentarios-usuario">
+    <h3>Mis Comentarios</h3>
+
+    {% if comentarios %}
+      <ul class="list-group">
+        {% for i in comentarios %}
+          <li class="list-group-item mb-3">
+            <p class="mb-1"><strong>Comentario #{{ i.id }}</strong> sobre <em>{{ i.post }}</em> el {{ i.fecha }}</p>
+            <p>{{ i.texto }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">No hay comentarios registrados.</p>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}
+
+{% block footer %}
+  {% include "partes/footer.html" %}
+{% endblock %}

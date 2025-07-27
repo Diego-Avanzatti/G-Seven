@@ -1,0 +1,43 @@
+.post-detail {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.comentarios ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.comentarios li {
+  background: #f8f9fa;
+  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.comentarios strong {
+  font-weight: 600;
+}
+
+.comentarios small {
+  color: #666;
+}
+
+.agregar-comentario {
+  margin-top: 30px;
+}
+
+.agregar-comentario textarea {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  resize: vertical;
+}
+
+.agregar-comentario button {
+  margin-top: 10px;
+}

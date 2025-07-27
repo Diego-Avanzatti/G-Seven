@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+  <title>{{ posts.titulo }}</title>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
+  <link rel="stylesheet" href="{% static 'css/posts/post_individual.css' %}">
+{% endblock %}
+
+{% block header %}
+  {% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<main class="container my-5">
+
+  <article class="post-detail p-4 mb-5 bg-white rounded shadow-sm">
+    <h2 class="mb-3">{{ posts.titulo }}</h2>
+    <p>{{ posts.descripcion }}</p>
+    <p><strong>Género:</strong> {{ posts.genero }}</p>
+    <p><em>Publicado el {{ posts.fecha|date:"d M Y H:i" }}</em></p>
+
+    {% if posts.imagen_post %}
+      <img src="{{ posts.imagen_post.url }}" alt="Imagen del post" class="img-fluid rounded mt-3" style="max-width: 400px;">
+    {% endif %}
+  </article>
+
+  <section class="comentarios mb-4">
+    <h3>Comentarios</h3>
+    {% if posts.comentarios.exists %}
+      <ul class="list-group">
+        {% for comentario in posts.comentarios.all %}
+          <li class="list-group-item mb-3 d-flex justify-content-between align-items-start">
+            <div>
+              <strong>{{ comentario.usuario }}</strong>
+              <small>{{ comentario.fecha|date:"d M Y H:i" }}</small>
+              <p class="mt-2">{{ comentario.texto }}</p>
+            </div>
+
+            {% if user == comentario.usuario or user.is_superuser or user.is_staff %}
+              <form method="post" action="{% url 'apps.comentarios:eliminar_comentarios' pk=comentario.pk %}" style="margin-left: 15px;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                <a href="{% url 'apps.comentarios:editar_comentarios' pk=comentario.pk %}" class="btn btn-warning btn-sm"><button>Editar</button></a>
+              </form>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">No hay comentarios aún.</p>
+    {% endif %}
+  </section>
+
+  <section class="agregar-comentario">
+    {% if user.is_authenticated %}
+      <button id="mostrarForm" class="btn btn-primary mb-3">Comentar este post</button>
+
+      <form id="formComentario" method="post" action="{% url 'apps.comentarios:agregar_comentario' pk=posts.pk %}" style="display:none;">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_texto" class="form-label">Tu comentario:</label>
+          <textarea id="id_texto" name="texto" rows="3" class="form-control" placeholder="Escribe aquí..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Enviar comentario</button>
+      </form>
+    {% else %}
+      <p>Debes <a href="{% url 'apps.usuarios:iniciar_sesion' %}">iniciar sesión</a> para poder comentar.</p>
+    {% endif %}
+  </section>
+
+
+
+
+</main>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/comentarios.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+  {% include "partes/footer.html" %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block titulo %}
+<title>Mis Comentarios</title>
+{% endblock %}
+
+
+{% block header %}
+    {% include "partes/header.html" %}
+{%endblock%}
+
+
+{% block contenido %}
+<div class="contenido">
+    <div class="contenido">
+        <p><strong>Nombres y Apellidos:</strong> {{ usuario.nombre }} {{ usuario.apellido }}</p>
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+        <p><strong>Fecha de nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
+        <img src="{{ usuario.imagen.url }}" alt="Imagen de perfil" style="max-width: 200px; height: auto;"/>
+    </div>
+    <ul>
+        {% for i in comentarios %}
+          <li>
+          <p>{{i.id}} // {{ i.post}}  // {{i.fecha}}.</p>
+          <p><strong>Comentario:</strong> {{ i.texto }}</p>
+          </li>
+          {% empty %}
+          <p>No hay registro</p>
+        {% endfor %}
+      </ul>
+</div>
+{%endblock%}
+
+{% block footer %}
+    {% include "partes/footer.html" %}
+{%endblock%}

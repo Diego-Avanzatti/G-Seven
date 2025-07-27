@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Comentario</title>
+{% endblock %}
+
+{% block header %}
+{% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <h2>Post: {{comentario.post}}</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Editar</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include "partes/footer.html" %}
+{% endblock %}

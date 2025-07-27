@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Iniciar Sesión</title>
+{% endblock %}
+
+{% block header %}
+{% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<form method="post" action="{% url 'apps.usuarios:cerrar_sesion' %}">
+    {% csrf_token %}
+    <button type="submit">Cerrar sesión</button>
+</form>
+
+{% endblock %}
+
+{% block footer %}
+{% include "partes/footer.html" %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+<title>Plataformas</title>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/general.css' %}">
+<link rel="stylesheet" href="{% static 'css/posts/plataforma_genero.css' %}">
+{% endblock %}
+
+{% block header %}
+    {% include "partes/header.html" %}
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <h2>Plataformas</h2>
+    {% if plataformas %}
+    <ul class="list-group">
+        {% for plataforma in plataformas %}
+          <li class="list-group-item">
+            <strong>Plataforma:</strong> {{ plataforma.plataforma }}
+          </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+      <p class="text-muted">No hay registro</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include "partes/footer.html" %}
+{% endblock %}
