@@ -1,4 +1,5 @@
 from django.db import models
+from apps.usuarios.models import Usuario
 
 
 class Genero(models.Model):
@@ -14,13 +15,13 @@ class Plataforma(models.Model):
         return self.plataforma
 
 class Post(models.Model):
+    creador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='posts')
     titulo = models.CharField(max_length=50, null=False,blank=False)
     subtitulo = models.CharField(max_length=150, null=False,blank=True)
-    fecha = models.DateTimeField(auto_created=True)
+    fecha = models.DateTimeField(auto_now_add=True)
     descripcion = models.TextField(null=False)
     genero = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True, default='S/N')
     plataforma = models.ForeignKey(Plataforma, on_delete=models.SET_NULL, null=True, default='S/N')
-    activo = models.BooleanField(default=True)
     imagen_post = models.ImageField(null=True,blank=True, upload_to='posts/', default='posts/img_post.png')
 
     class Meta:
@@ -32,5 +33,5 @@ class Post(models.Model):
 
     def delete(self, using = None, keep_parents = False):
         self.imagen_post.delete(self.imagen_post.name)
-        super().delete()
+        return super().delete()
 

@@ -6,12 +6,16 @@
 {% endblock %}
 
 {% block styles %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
+  
+  <!-- Estilos específicos -->
+  <link rel="stylesheet" href="{% static 'css/general.css' %}">
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
-  <link rel="stylesheet" href="{% static 'css/general.css' %}">
-  <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
-  <link rel="stylesheet" href="{% static 'css/posts/post_individual.css' %}">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
+
 
 {% block header %}
   {% include "partes/header.html" %}
@@ -20,36 +24,61 @@
 {% block contenido %}
 <main class="container my-5">
 
-  <article class="post-detail p-4 mb-5 bg-white rounded shadow-sm">
-    <h2 class="mb-3">{{ posts.titulo }}</h2>
-    <p>{{ posts.descripcion }}</p>
-    <p><strong>Género:</strong> {{ posts.genero }}</p>
-    <p><em>Publicado el {{ posts.fecha|date:"d M Y H:i" }}</em></p>
+  <article class="post-detail d-flex flex-column flex-lg-row p-4 bg-white bg-opacity-75 rounded shadow-sm border border-primary">
+      <div class="m-2 flex-shrink-0">
+        {% if posts.imagen_post %}
+          <img src="{{ posts.imagen_post.url }}" alt="Imagen del post" class="img-fluid rounded mt-3" style="max-width: 400px;">
+        {% endif %}
 
-    {% if posts.imagen_post %}
-      <img src="{{ posts.imagen_post.url }}" alt="Imagen del post" class="img-fluid rounded mt-3" style="max-width: 400px;">
-    {% endif %}
+        <!-- Botón eliminar post solo para admin o superuser -->
+        {% if user.is_authenticated %}
+          {% if user.is_superuser or user.is_staff %}
+            <form method="post" action="{% url 'apps.posts:eliminar_post' pk=posts.pk %}" class="mt-3">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline">Eliminar Post</button>
+            </form>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="m-lg-5">
+        <h2 class="mb-3">{{ posts.titulo }}</h2>
+        <h3 class="mb-3">{{ posts.subtitulo }}</h3>
+        <p><em>Publicado el {{ posts.fecha|date:"d M Y H:i" }}</em>  {{ posts.creador }}</p>
+        <p><strong>Género:</strong> {{ posts.genero }}</p>
+        <p>{{ posts.descripcion }}</p>
+      </div>  
   </article>
 
-  <section class="comentarios mb-4">
+  <section class="comentarios m-1 bg-dark rounded shadow-sm">
     <h3>Comentarios</h3>
-    {% if posts.comentarios.exists %}
+    {% if posts.comentarios.all %}
       <ul class="list-group">
         {% for comentario in posts.comentarios.all %}
-          <li class="list-group-item mb-3 d-flex justify-content-between align-items-start">
+          <li class="list-group-item d-flex align-items-start justify-content-between mb-3">
             <div>
               <strong>{{ comentario.usuario }}</strong>
-              <small>{{ comentario.fecha|date:"d M Y H:i" }}</small>
+              <small class="text-muted ms-2">{{ comentario.fecha|date:"d M Y H:i" }}</small>
               <p class="mt-2">{{ comentario.texto }}</p>
             </div>
 
-            {% if user == comentario.usuario or user.is_superuser or user.is_staff %}
-              <form method="post" action="{% url 'apps.comentarios:eliminar_comentarios' pk=comentario.pk %}" style="margin-left: 15px;">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                <a href="{% url 'apps.comentarios:editar_comentarios' pk=comentario.pk %}" class="btn btn-warning btn-sm"><button>Editar</button></a>
-              </form>
-            {% endif %}
+            <div class="d-flex gap-2">
+              {% if user.is_authenticated %}
+                {% if user.is_superuser or user.is_staff %}
+                  <form method="post" action="{% url 'apps.comentarios:eliminar_comentario' pk=comentario.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline">Eliminar</button>
+                  </form>
+                {% elif comentario.usuario == user %}
+                  <a href="{% url 'apps.comentarios:editar_comentario' pk=comentario.pk %}" class="btn btn-outline">Editar</a>
+                  <form method="post" action="{% url 'apps.comentarios:eliminar_comentario' pk=comentario.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class=" btn btn-outline">Eliminar</button>
+                  </form>
+                {% endif %}
+              {% endif %}
+            </div>
+
           </li>
         {% endfor %}
       </ul>
@@ -60,23 +89,20 @@
 
   <section class="agregar-comentario">
     {% if user.is_authenticated %}
-      <button id="mostrarForm" class="btn btn-primary mb-3">Comentar este post</button>
+      <button id="mostrarForm" class="btn btn-outline mb-3 ">Comentar este post</button>
 
       <form id="formComentario" method="post" action="{% url 'apps.comentarios:agregar_comentario' pk=posts.pk %}" style="display:none;">
         {% csrf_token %}
         <div class="mb-3">
-          <label for="id_texto" class="form-label">Tu comentario:</label>
+          <label for="id_texto" class="form-label text-white">Tu comentario:</label>
           <textarea id="id_texto" name="texto" rows="3" class="form-control" placeholder="Escribe aquí..."></textarea>
         </div>
-        <button type="submit" class="btn btn-success">Enviar comentario</button>
+        <button type="submit" class="btn btn-outline">Enviar comentario</button>
       </form>
     {% else %}
       <p>Debes <a href="{% url 'apps.usuarios:iniciar_sesion' %}">iniciar sesión</a> para poder comentar.</p>
     {% endif %}
   </section>
-
-
-
 
 </main>
 {% endblock %}

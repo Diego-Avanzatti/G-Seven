@@ -1,17 +1,139 @@
+body{
+    background-image: url('../img/imag_fondo index.webp');
+    background-size: cover;       
+    background-position: center;  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;               
+    margin: 0;
+    min-height: calc(100vh - 200px);
+    position: relative;
+}
+
+
+.logo_index{
+    border-radius: 30px;
+    margin-bottom: 20px;
+    height:150px; 
+    width:150px;
+}
+
 .cuerpo {
-  background-color: #ffffff;
   padding: 20px;
   border-left: 5px solid #0d6efd;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background-color: #ffffff3d;
+  color:#ffffff;
 }
 
+.cuerpo h3{
+     color: #ffffff;
+}
 .list-group-item {
-  background-color: #f8f9fa;
   font-weight: 500;
-  color: #212529;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #ffffff1f;
 }
 
-.list-group-item:hover {
-  background-color: #e2e6ea;
+.hero {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 30px 20px;
+    margin-bottom: 50px;
+}
+
+.hero .container {
+    max-width: 800px;
+    margin: 10px auto;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background: transparent;
+    border-color: #0dcaf0;
+    color: #0dcaf0;
+}
+
+.btn-outline:hover {
+    background: #0dcaf0;
+    color: #212529;
+    text-decoration: none;
+}
+
+
+#equipo {
+    position: relative;
+    z-index: 2;
+    padding: 40px 20px;
+    background: rgba(33, 37, 41, 0.9);
+    border-radius: 10px;
+    margin: 50px auto 50px auto;
+    max-width: 600px;
+}
+
+#equipo h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #0dcaf0;
+    text-align: center;
+}
+
+.team-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.team-list li {
+    background: rgba(13, 202, 240, 0.1);
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 3px solid #0dcaf0;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.team-list li:last-child {
+    margin-bottom: 0;
 }

@@ -9,129 +9,145 @@ from .models import Post, Genero, Plataforma
 from django.core.paginator import Paginator
 
 
+# Mixin para restringir acceso solo a admins y superusuarios
 
-class AdminOnlyMixin(LoginRequiredMixin, UserPassesTestMixin):
+class AdminRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_staff or self.request.user.is_superuser
 
     def handle_no_permission(self):
-        raise Http404("No tiene permiso para realizar esta acción.")
+        raise Http404()
     
+# CRUD para Género (solo admin puede crear, actualizar y eliminar)
 
-# ----- Género ------
-class AgregarGenero(AdminOnlyMixin, CreateView):
+class AgregarGenero(AdminRequiredMixin, CreateView):
     model = Genero
     fields = ['genero']
     template_name = 'posts/generos/agregar_genero.html'
     success_url = reverse_lazy('index')
 
-class ActualizarGenero(AdminOnlyMixin, UpdateView):
+class ActualizarGenero(AdminRequiredMixin, UpdateView):
     model = Genero
     fields = ['genero']
     template_name = 'posts/generos/agregar_genero.html'
     success_url = reverse_lazy('index')
 
-class EliminarGenero(AdminOnlyMixin, DeleteView):
+class EliminarGenero(AdminRequiredMixin, DeleteView):
     model = Genero
     template_name = 'genericos/confirma_eliminar.html'
     success_url = reverse_lazy('index')
+
+#--------sin restricción-----------
 
 def listar_generos(request):
     generos = Genero.objects.all()
     return render(request, 'posts/generos/generos.html', {'generos': generos})
 
-#----------Plataforma----------
 
-class AgregarPlataforma(AdminOnlyMixin, CreateView):
+# CRUD para Plataforma (solo admin puede crear, actualizar y eliminar)
+
+class AgregarPlataforma(AdminRequiredMixin, CreateView):
     model = Plataforma
     fields = ['plataforma']
     template_name = 'posts/plataformas/agregar_plataforma.html'
     success_url = reverse_lazy('index')
 
-class ActualizarPlataforma(AdminOnlyMixin, UpdateView):
+class ActualizarPlataforma(AdminRequiredMixin, UpdateView):
     model = Plataforma
     fields = ['plataforma']
     template_name = 'posts/plataformas/agregar_plataforma.html'
     success_url = reverse_lazy('index')
 
-class EliminarPlataforma(AdminOnlyMixin, DeleteView):
+class EliminarPlataforma(AdminRequiredMixin, DeleteView):
     model = Plataforma
     template_name = 'genericos/confirma_eliminar.html'
     success_url = reverse_lazy('index')
+
+
+#--------sin restricción-----------
 
 def listar_plataformas(request):
     plataformas = Plataforma.objects.all()
     return render(request, 'posts/plataformas/plataformas.html', {'plataformas': plataformas})
 
-# ----- Post ------
 
-class CrearPost(UserPassesTestMixin, LoginRequiredMixin, CreateView):
+# CRUD para Post
+
+
+class CrearPost(LoginRequiredMixin, CreateView):
     model = Post
     fields = [
-        'titulo', 'subtitulo', 'fecha', 
+        'titulo', 'subtitulo',
         'descripcion', 'genero', 'plataforma',
-        'activo', 'imagen_post'
-        ]
+        'imagen_post'
+    ]
     template_name = 'posts/agregar_post.html'
     success_url = reverse_lazy('index')
 
-    def test_func(self):
-        return self.request.user.is_staff or self.request.user.is_superuser
-
+    
+    def form_valid(self, form):
+        form.instance.creador = self.request.user
+        return super().form_valid(form)
 
 class ActualizarPost(LoginRequiredMixin, UpdateView):
     model = Post
     fields = [
-        'titulo', 'subtitulo', 'fecha', 
+        'titulo', 'subtitulo', 
         'descripcion', 'genero', 'plataforma',
-        'activo', 'imagen_post'
-        ]
+         'imagen_post'
+    ]
     template_name = 'posts/agregar_post.html'
     success_url = reverse_lazy('index')
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            raise Http404("No tiene permiso para realizar esta acción.")
-        return super().dispatch(request, *args, **kwargs)
+        post = self.get_object()
+        if post.usuario == request.user:
+            return super().dispatch(request, *args, **kwargs)
+        raise Http404("No tiene permiso para editar este post.")
+    
 
-class EliminarPost(DeleteView):
+class EliminarPost(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'genericos/confirma_eliminar.html'
     success_url = reverse_lazy('index')
 
-
     def get_queryset(self):
-        if self.request.user.is_staff or self.request.user.is_superuser:
+        user = self.request.user
+        if user.is_staff or user.is_superuser:
             return super().get_queryset()
-        return super().get_queryset().none()
+        else:
+            return super().get_queryset().filter(usuario=user)
 
-    
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            raise Http404("No tiene permiso para realizar esta acción.")
+        queryset = self.get_queryset()
+        post = self.get_object()
+
+        if post not in queryset:
+            raise Http404("No tiene permiso para eliminar este post.")
         return super().dispatch(request, *args, **kwargs)
 
 
 # ----- Post(inicio) ------
 
-
 def listar_posts(request):
-    posts= Post.objects.all()
-    context = {
-        'posts': posts
-    }
-    paginator = Paginator(posts,4)
+    posts = Post.objects.all() 
+    paginator = Paginator(posts, 4)  
     page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request,'posts/posts.html',context= context)
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, 'posts/posts.html', context)
+
 
 
 class DetailPost(DetailView):
     model = Post
     template_name = 'posts/post_individual.html'
-    context_object_name = 'posts'
+    context_object_name = 'posts'  
     queryset = Post.objects.all()
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comentarios'] = Comentario.objects.filter(post=self.object).order_by('-fecha')

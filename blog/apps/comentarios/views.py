@@ -26,8 +26,7 @@ class CrearComentario(LoginRequiredMixin, CreateView):
 class EditarComentarios(LoginRequiredMixin, UpdateView):
     model = Comentario
     fields = ['texto']
-    template_name = 'comentarios/editar_comentario.html'
-    success_url = reverse_lazy('apps.posts:posts')
+    template_name = 'comentarios/agregar_comentario.html'
 
     def get_object(self, queryset=None):
         comentario = super().get_object(queryset)
@@ -39,22 +38,21 @@ class EditarComentarios(LoginRequiredMixin, UpdateView):
         messages.success(self.request, "Comentario actualizado correctamente")
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse_lazy('apps.posts:post_individual', kwargs={'pk': self.object.post.pk})
 
 
 class EliminarComentario(LoginRequiredMixin, DeleteView):
     model = Comentario
     template_name = 'genericos/confirma_eliminar.html'
-    success_url = reverse_lazy('apps.posts:posts')
 
     def get_queryset(self):
         if self.request.user.is_staff or self.request.user.is_superuser:
             return Comentario.objects.all()
         return Comentario.objects.filter(usuario=self.request.user)
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            raise Http404("Debes iniciar sesión para eliminar comentarios.")
-        return super().dispatch(request, *args, **kwargs)
+    def get_success_url(self):
+        return reverse_lazy('apps.posts:post_individual', kwargs={'pk': self.object.post.pk})
 
 
 

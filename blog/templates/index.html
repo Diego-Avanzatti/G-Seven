@@ -17,16 +17,21 @@
   <title>Proyecto Final Grupo-7</title>
 {% endblock %}
 
-{% block header %}
-  {% include "partes/header.html" %}
-{% endblock %}
 
 {% block contenido %}
-<main class="container my-5">
-  <h1 class="text-center mb-4">Página de Inicio</h1>
-  <h2 class="mb-4">Posts Recientes</h2>
-
-  <section class="cuerpo p-4 bg-light rounded shadow-sm">
+<main class="container my-5 ">
+  <section class="hero">
+    <div class="container">
+        <img class='logo_index'src="{% static '../static/img/logo_g7.png' %}" alt="Logo"/>
+        <h2>¡Bienvenido a GamerBlog!</h2>
+        <p>Tu lugar para noticias, reseñas y comunidad gamer</p>
+        <div class="hero-buttons">
+            <a href="{% url 'apps.posts:posts' %}" class="btn btn-outline">Ver Posts</a>
+            <a href="{% url 'apps.usuarios:iniciar_sesion' %}" class="btn btn-outline">Iniciar Sesión</a>
+        </div>
+    </div>
+  </section>
+  <section class="cuerpo p-4  rounded shadow-sm">
     <h3 class="mb-3">Estas son cinco de las plataformas de videojuegos más importantes del mercado:</h3>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">PlayStation</li>
@@ -36,11 +41,21 @@
       <li class="list-group-item">Android</li>
     </ul>
   </section>
-</main>
-{% endblock %}
 
-{% block footer %}
-  {% include 'partes/footer.html' %}
+  <section id="equipo" class="container">
+    <h2>Integrantes del Equipo 7</h2>
+    
+    <ul class="team-list">
+        <li>Antúnez, Pablo</li>
+        <li>Avanzatti, Diego Gabriel</li>
+        <li>Criscueli, Eduardo Ezequiel</li>
+        <li>Fernández, Ezequiel Jesús</li>
+        <li>Salas, Gabriel Leonardo</li>
+        <li>Sánchez, Vanina</li>
+        <li>Viton, Eliana</li>
+    </ul>
+</section>
+</main>
 {% endblock %}
 
 {% block scripts %}

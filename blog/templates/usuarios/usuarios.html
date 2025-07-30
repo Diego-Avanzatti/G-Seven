@@ -10,6 +10,10 @@
 {% endblock %}
 
 {% block styles %}
+<!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
+ 
+  
   <!-- CSS específico para esta vista -->
   <link rel="stylesheet" href="{% static 'css/general.css' %}">
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
@@ -21,7 +25,7 @@
 <main class="container my-5">
   <h2 class="mb-4">Listado de Usuarios</h2>
 
-  {% if usuarios %}
+  {% if usuarios%}
     <ul class="list-group">
       {% for i in usuarios %}
         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">

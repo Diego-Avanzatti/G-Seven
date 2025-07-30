@@ -12,5 +12,5 @@ class PlataformaAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('id','titulo', 'subtitulo', 'fecha', 'descripcion', 'imagen_post', 'genero', 'plataforma', 'activo')
+    list_display = ('id','titulo', 'subtitulo', 'descripcion', 'imagen_post', 'genero', 'plataforma')
     
