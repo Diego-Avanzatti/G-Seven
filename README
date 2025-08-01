@@ -16,15 +16,7 @@ Este proyecto es un Blog desarrollado con Django donde se publican reseñas de v
 # Crear base de datos local en MySQL
 En el BASH: mysql -u root -p
 Cada integrante debe crear una base de datos local en MySQL con este comando:
-#CREATE DATABASE blog_g7 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-
-Podes usar otro nombre si queres, pero asegurate de configurarlo correctamente en el archivo .env
-
-
-# Variables de Entorno (env.)
-Este proyecto utiliza un archivo .env para configurar datos sensibles como el acceso a la base de datos y la clave de Django
-El archivo .env no esta incluido en el repositorio por seguridad, pero se proporciona un archivo guia llamado .env.example. Para configurarlo copiar el archivo de ejemplo, edita el archivo .env con tus datos reales y listo.
+#CREATE DATABASE blog_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 # Ejecuta migraciones
