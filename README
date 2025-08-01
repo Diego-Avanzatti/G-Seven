@@ -50,7 +50,7 @@ Carpeta media/ (imagenes)
 * Esta carpeta si esta incluidad en el repositorio, por lo que se puede clonar y ver imagenes de ejemplo
 * Las rutas estan configuradas en settings.py y urls.py
 
-# Pasos para importar la base de datos:
+# Pasos para importar la base de datos: esto es para ver los Post
 
 1. Abrir MySQL Workbench
 2. Ir a Management > Data Import/Restore
