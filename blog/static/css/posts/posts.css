@@ -1,3 +1,7 @@
+.container{
+  flex: 1;
+}
+
 .btn-principal {
   background-color: #4ca3ff3d;
   color: white;

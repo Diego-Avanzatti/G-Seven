@@ -8,8 +8,13 @@ body{
     margin: 0;
     min-height: calc(100vh - 200px);
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
+.container{
+    flex: 1;
+}
 
 .logo_index{
     border-radius: 30px;
