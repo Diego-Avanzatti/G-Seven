@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import DetailPost, listar_posts, EliminarPost, CrearPost, ActualizarPost, EliminarPost
+from .views import DetailPost, filtrar_posts, listar_posts, EliminarPost, CrearPost, ActualizarPost, EliminarPost
 from .views import listar_generos, EliminarGenero, AgregarGenero, ActualizarGenero, EliminarGenero
 from .views import listar_plataformas, EliminarPlataforma, AgregarPlataforma, ActualizarPlataforma, EliminarPlataforma
 
@@ -8,6 +8,7 @@ app_name = 'apps.posts'
 urlpatterns = [
     #-----urls---posts------
     path('posts/', listar_posts ,name='posts'),
+    path('filtrar/<str:tipo>/<int:id>/', filtrar_posts, name='filtrar_posts'),
     path('posts/<int:pk>/', DetailPost.as_view() ,name='post_individual'),
     path('eliminar_post/<int:pk>/', EliminarPost.as_view() ,name='eliminar_post'),
     path('agregar_post/', CrearPost.as_view() ,name='agregar_post'),
