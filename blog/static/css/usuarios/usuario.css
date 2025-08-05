@@ -1,3 +1,7 @@
+.container{
+  flex: 1;
+}
+
 .perfil_usuario {
   box-shadow: 0 0 3px rgba(255, 255, 255, 0.705);
   background: #fafafa;
