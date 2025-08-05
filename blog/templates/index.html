@@ -34,11 +34,11 @@
   <section class="cuerpo p-4  rounded shadow-sm">
     <h3 class="mb-3">Estas son cinco de las plataformas de videojuegos más importantes del mercado:</h3>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">PlayStation</li>
-      <li class="list-group-item">Nintendo</li>
-      <li class="list-group-item">Xbox</li>
-      <li class="list-group-item">PC</li>
-      <li class="list-group-item">Android</li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 1 %}" >PlayStation (PS5/PS4)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 2 %}" >Nintendo (Switch / Switch 2)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 3 %}" >Xbox (Series X|S & Game Pass)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 4 %}" >PC (Windows / Steam)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 5 %}" >Android (móvil)</a></li>
     </ul>
   </section>
 

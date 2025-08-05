@@ -140,6 +140,24 @@ def listar_posts(request):
     }
     return render(request, 'posts/posts.html', context)
 
+def filtrar_posts(request, tipo, id):
+    posts = Post.objects.all()
+    if tipo == 'plataforma':
+        posts = posts.filter(plataforma = id)
+    elif tipo == 'genero':
+        posts = posts.filter(genero= id)
+    else:
+        raise Http404("Error, entrada incorrecta.")
+
+    paginator = Paginator(posts, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+    }
+
+    return render(request, 'posts/filtrar_posts.html',context)
 
 
 class DetailPost(DetailView):

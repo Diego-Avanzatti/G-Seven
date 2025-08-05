@@ -18,37 +18,50 @@
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'css/usuarios/usuario.css' %}">
 {% endblock %}
 
 {% block contenido %}
 <main class="container my-5">
-  <div class="perfil-usuario mb-4 p-3 bg-light rounded shadow-sm">
-    <h2>Perfil del Usuario</h2>
-    <p><strong>Nombre:</strong> {{ usuario.nombre }} {{ usuario.apellido }}</p>
-    <p><strong>Email:</strong> {{ usuario.email }}</p>
-    {% if usuario.fecha_nacimiento %}
-      <p><strong>Fecha de nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
-    {% endif %}
-    {% if usuario.imagen %}
-      <img src="{{ usuario.imagen.url }}" alt="Imagen de perfil" class="img-perfil mt-3"/>
-    {% else %}
-      <img src="{% static 'img/default-profile.png' %}" alt="Imagen de perfil" class="img-perfil mt-3"/>
-    {% endif %}
+  <div class="perfil_usuario mb-4 p-4 rounded opacity-75 d-flex justify-content-evenly">
+    <div class="flex-shrink-0 m-2 p-1">
+      {% if usuario.imagen %}
+        <img src="{{ usuario.imagen.url }}" alt="Imagen de perfil" class="img-perfil mt-3"/>
+      {% else %}
+        <img src="{% static 'img/default-profile.png' %}" alt="Imagen de perfil" class="img-perfil mt-3"/>
+      {% endif %}
+    </div>
+    <div class="flex-shrink-0 p-1 perfil">
+      <h2>Perfil del Usuario</h2>
+      <p><strong>Nombre de usuario:</strong> {{ usuario.username }}</p>
+      <p><strong>Nombre:</strong> {{ usuario.nombre }} {{ usuario.apellido }}</p>
+      <p><strong>Email:</strong> {{ usuario.email }}</p>
+      {% if usuario.fecha_nacimiento %}
+        <p><strong>Fecha de nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
+      {% endif %}
+    </div>
+    <div class="align-content-end">
+      <a href="{% url 'apps.usuarios:actualizar_usuarios' pk=usuario.pk %}" class="btn btn-secondary">Editar</a>
+    </div>
   </div>
+  
   <div class="posts-usuario mb-4">
     <h3>Mis Posts</h3>
 
     {% if posts %}
       <ul class="list-group">
         {% for post in posts %}
-          <li class="list-group-item mb-3">
-            <a href="{% url 'apps.posts:post_individual' post.id %}">{{ post.titulo }}</a>
-            <p><em>Publicado el {{ post.fecha|date:"d/m/Y" }}</em></p>
-            <p>{{ post.descripcion|truncatewords:20 }}</p>
-
-
-              
-          
+          <li class="list-group-item mb-3 d-flex">
+            <div class="flex-shrink-0">
+              {% if post.imagen_post %}
+                <img src="{{ post.imagen_post.url }}" alt="Imagen del post" class="img-fluid rounded mt-3" style="max-width: 200px;">
+              {% endif %}
+            </div>
+            <div class="flex-shrink-0 m-2 p-1">
+              <a class='fs-3' href="{% url 'apps.posts:post_individual' post.id %}">{{ post.titulo }}</a>
+              <p class='opacity-75'><em>Publicado el {{ post.fecha|date:"d/m/Y" }}</em></p>
+              <p>{{ post.descripcion|truncatewords:20 }}</p>
+            </div>
           </li>
         {% endfor %}
       </ul>
