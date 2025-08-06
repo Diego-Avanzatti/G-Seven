@@ -74,7 +74,9 @@ class ActualizarUsuarios(LoginRequiredMixin, UpdateView):
     model = Usuario
     template_name = 'usuarios/actualizar_usuario.html'
     fields = ['nombre', 'apellido', 'email', 'fecha_nacimiento', 'imagen']
-    success_url = reverse_lazy('apps.usuarios:usuario')
+    
+    def get_success_url(self):
+        return reverse_lazy('apps.usuarios:usuario', kwargs={'pk': self.object.pk})
 
 
     def dispatch(self, request, *args, **kwargs):
