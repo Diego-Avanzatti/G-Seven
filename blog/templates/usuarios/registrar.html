@@ -19,13 +19,18 @@
 {% endblock %}
 
 {% block contenido %}
-<main class="container my-5">
-  <h2 class="mb-4">Formulario de Registro</h2>
-  <form method="post" enctype="multipart/form-data" >
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Registrarse</button>
-  </form>
+<main class="container w-auto mt-4">
+  <div class="bg-white bg-opacity-75 p-5 rounded shadow" style="max-width: 500px;">
+    <h2 class="mb-4 text-center">Formulario de Registro</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+      <div class=" text-center m-3">
+        <p class="text-black">Si ya tiene cuenta, ¿Desea <a class="text-black" href=" {% url 'apps.usuarios:iniciar_sesion'%}">Iniciar Sesión</a>?</p>
+      </div>
+    </form>
+  </div>
 </main>
 {% endblock %}
 

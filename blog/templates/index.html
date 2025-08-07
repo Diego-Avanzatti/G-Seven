@@ -23,7 +23,10 @@
         <p>Tu lugar para noticias, reseñas y comunidad gamer</p>
         <div class="hero-buttons">
             <a href="{% url 'apps.posts:posts' %}" class="btn btn-outline">Ver Posts</a>
-            <a href="{% url 'apps.usuarios:iniciar_sesion' %}" class="btn btn-outline">Iniciar Sesión</a>
+            {% if not user.is_authenticated %}
+              <a href="{% url 'apps.usuarios:iniciar_sesion' %}" class="btn btn-outline">Iniciar Sesión</a>
+              <a href="{% url 'apps.contacto:contactos' %}" class="btn btn-outline">Consultas</a>
+            {% endif %}
         </div>
     </div>
   </section>
@@ -37,6 +40,7 @@
       <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 5 %}" >Android (móvil)</a></li>
     </ul>
   </section>
+
 
   <section id="equipo" class="container">
     <h2>Integrantes del Equipo 7</h2>

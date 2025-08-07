@@ -40,9 +40,14 @@
     {% if usuario.id == user.id %}
       <div class="align-content-end">
         <a href="{% url 'apps.usuarios:actualizar_usuarios' pk=usuario.pk %}" class="btn btn-secondary">Editar</a>
+        <a href="{% url 'apps.usuarios:eliminar_usuario' pk=usuario.pk %}" class="btn btn-secondary">Eliminar</a>          
       </div>
     {% endif %}
   </div>
+
+ 
+ 
+   
   
   <div class="posts-usuario mb-4">
     <h3>Mis Posts</h3>

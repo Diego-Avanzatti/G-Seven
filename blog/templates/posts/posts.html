@@ -21,17 +21,17 @@
 {% block contenido %}
 <main class="container my-5">
 
- <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center ">
-
+ <div class="d-flex gap-3 mt-4 justify-content-center ">
+  <div class="hero-buttons bg-dark bg-opacity-75 p-3 rounded shadow" style="max-width: 650px; margin: auto;">
   {% if user.is_authenticated %}
-    <a href="{% url 'apps.posts:agregar_post'%}" class="btn btn-outline">Agregar Post</a>
+    <h4 class="text-white text-center mb-1">“Cada gran historia empieza con un primer posteo”</h4>
+    <a href="{% url 'apps.posts:agregar_post'%}" class="btn btn-outline m-1">Agregar Post</a>
   {% endif %}
-
   {% if user.is_staff or user.is_superuser %}
-    <a href="{% url 'apps.posts:agregar_plataforma' %}" class="btn btn-outline">Agregar Plataforma</a>
-    <a href="{% url 'apps.posts:agregar_genero' %}" class="btn btn-outline">Agregar Género</a>
+    <a href="{% url 'apps.posts:agregar_plataforma' %}" class="btn btn-outline m-1">Agregar Plataforma</a>
+    <a href="{% url 'apps.posts:agregar_genero' %}" class="btn btn-outline m-1">Agregar Género</a>
   {% endif %}
-
+  </div>
 </div>
 
 {% if page_obj %}

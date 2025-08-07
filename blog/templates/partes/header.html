@@ -19,7 +19,7 @@
         {% if request.user.is_authenticated %}
           <li class="nav-item">
             {% if request.user.is_staff or request.user.is_superuser %}
-              <a class="nav-link text-white" href="{% url 'apps.usuarios:usuarios' %}">Panel Admin</a>
+              <a class="nav-link text-white" href="{% url 'apps.usuarios:usuarios' %}">Mi Panel</a>
             {% else %}
               <a class="nav-link text-white" href="{% url 'apps.usuarios:usuario' request.user.pk %}">Mi Perfil</a>
             {% endif %}
