@@ -1,11 +1,19 @@
-# Blog de Videojuegos - EQUIPO 7
+# Informatorio Etapa 2 - Desarrollo Web - 2025 
+Proyecto Final - Blog de Videojuegos - EQUIPO 7 
+
+Aplicación web desarrollada en Python utilizando Django y SQL con bases de datos relacionales orientada a publicar contenido en formato de entradas o artículos (también llamados “posts”), organizados cronológicamente. 
 
 
-Este proyecto es un Blog desarrollado con Django donde se publican reseñas de videojuegos.
+# Funcionalidades:
+
+▶ Acceso de diversos perfiles (admin, registrado, etc).
+▶ Carga de un nuevo posteo, eliminación de posteos publicados (con diversas restricciones).
+▶ Que los usuarios registrados puedan realizar comentarios acerca de los posteos. Para ello un usuario debe estar autenticado y tener perfil registrado.
+▶ Logueo de usuario "administrador" y registrado.
+▶ Filtrado de los posteos por fecha, categoría y comentarios recibidos.
 
 
-# Como ejecutar el proyecto
-
+# Ejecución del proyecto:
 
 1. Clonar el repositorio 
 2. Crear un entorno virtual (python -m venv entorno) en el bash
@@ -13,18 +21,21 @@ Este proyecto es un Blog desarrollado con Django donde se publican reseñas de v
 4. Istalar las dependencias (pip install -r requirements.txt)
 
 
-# Crear base de datos local en MySQL
+# Crear base de datos de forma local en MySQL:
+
 En el BASH: mysql -u root -p
 Cada integrante debe crear una base de datos local en MySQL con este comando:
 #CREATE DATABASE blog_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
-# Ejecuta migraciones
+# Ejecutar migraciones:
+
 python manage.py makemigrations
 python manage.py migrate
 
 
-# Crear superusuario para usar el panel admin
+# Crear superusuario para usar el panel admin:
+
 python manage.py createsuperuser
 
 Te va a pedir: 
@@ -37,11 +48,13 @@ Bypass password validation and create user anyway? [y/N]: y
 Superuser created successfully.
 
 
-# Ejecuta el servidor
+# Ejecuta el servidor:
+
 python manage.py runserver
 
 
-# Abri el navegador en
+# Abri el navegador en:
+
 http://127.0.0.1:80000
 
 Carpeta media/ (imagenes)
@@ -50,19 +63,21 @@ Carpeta media/ (imagenes)
 * Esta carpeta si esta incluidad en el repositorio, por lo que se puede clonar y ver imagenes de ejemplo
 * Las rutas estan configuradas en settings.py y urls.py
 
-# Pasos para importar la base de datos: esto es para ver los Post
+# Pasos para importar la base de datos y poder visualizar los posteos publicados:
 
 1. Abrir MySQL Workbench
-2. Ir a Management > Data Import/Restore
-3. Elegir opcion: Import from Self-Contained File
-4. Seleccionar el archivo: "base_datos/db_export.sql
-5. Marcar opcion: Dump Structure and Data
-6. Ejecutar la importacion.
+2. En el panel izquierdo de Navegación seleccionar en la parte inferior "Administration".
+3. Luego en el menú bajo el título "MANAGEMENT" marcar la opción "Data Import/Restore".
+4. Aparecerá una ventana a la derecha con dos pestañas. En la primera pestaña que dice "Import form Disk" seleccionar la opción "Import from Self-Contained File".
+5. El siguiente paso es seleccionar la ruta del archivo "db_export.sql" que está en la carpeta "Base de datos" (base de datos/db_export.sql). Para ello hacer click en el botón "..." para seleccionar la ruta del archivo a importar.
+6. Continuamos con la selección de nuestra base de datos "blog_db" en el menú desplegable de la opción "Default Target Schema".
+7. Una vez seleccionada la base de datos como destino, asegurarse de que esté marcada la opción "Dump Structure and Data" (para importar tanto las tablas como el contenido).
+8. Pasar a la sección "Import Progress" y comenzar la importación haciendo click en el botón "Start Import".
+9. Finalizado el proceso de importación, en el panel izquierdo seleccionar "Schemas", hacer clic en el ícono derecho "🔼🔽" para refrescar/actualizar o al hacer click derecho en nuestra base de datos "blog_db" seleccionar del menú la opción "Refresh All" para ver la base importada con sus tablas y datos.
 
-*Importante: si mas adelante se agregan nuevos posts, van a tener que volver a importar esta base actualizada. Cada vez que abran el proyecto, revisen en el github si el archivo .sql fue actualizado. 
+*Importante: En caso de agregarse nuevos posteos se tendrá que volver a importar la base para mantenerla actualizada. Cada vez que se abra el proyecto, revisar si el archivo .sql fue actualizado. 
 
 Integrantes:
-
 
 - Antúnez, Pablo
 - Avanzatti, Diego Gabriel
