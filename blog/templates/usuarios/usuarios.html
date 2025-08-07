@@ -21,28 +21,103 @@
 
 {% block contenido %}
 <main class="container my-5">
-  <h2 class="mb-4">Listado de Usuarios</h2>
+  <h3 class="mb-2 text-white mt-2">Listado de Usuarios</h3>
 
   {% if usuarios%}
-    <ul class="list-group">
+    <ul class="team-list bg-black rounded-2 p-2">
       {% for i in usuarios %}
-        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+        <li class=" mb-2 border-2 d-flex justify-content-between container text-break">
           <div>
             <strong>Usuario:</strong> {{ i.id }} - {{ i.username }} <br>
             <strong>Nombre:</strong> {{ i.nombre }} {{ i.apellido }} <br>
             <strong>Nacimiento:</strong> {{ i.fecha_nacimiento }} <br>
             <strong>Email:</strong> {{ i.email }}
           </div>
-          <a href="{{ i.id }}" class="btn btn-primary mt-2 mt-md-0">Abrir Perfil</a>
+          <div class="d-flex h-25 gap-2">
+            <a href="{{ i.id }}" class="btn btn-primary mt-2 mt-md-0">Abrir Perfil</a>
+            <a href="{% url 'apps.usuarios:eliminar_usuario' pk=i.pk %}" class="btn btn-secondary">Eliminar</a> 
+          </div>       
         </li>
       {% endfor %}
     </ul>
   {% else %}
     <p class="text-muted">No hay registros de usuarios.</p>
   {% endif %}
+
+  <h3 class="text-white mt-5 mb-2">Listado de Consultas</h3>
+  {% if contactos %}
+    <ul class="team-list bg-black rounded-2 p-2"> 
+      {% for i in contactos %}
+        <li class="mb-2 border-2 d-flex justify-content-between container text-break">
+          <div class='p-2'>
+            <strong>Nombres y Apellidos:</strong> {{ i.nombre }} {{ i.apellido }} <br>
+            <strong>Fecha de consulta:</strong> {{ i.fecha}} <br>
+            <strong>Telefono:</strong> {{ i.telefono }} <br>
+            <strong>Email:</strong> {{ i.email }}<br>
+          </div>
+          <div class=" w-50 text-start text-break p-2">
+            <strong>Consulta:<br></strong> 
+            {{ i.mensaje }}
+          </div>
+          <div>
+             <a href="{% url 'apps.contacto:eliminar_consulta' pk=i.pk %}" class="btn btn-secondary">Eliminar</a>         
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-white">No hay registros de consultas.</p>
+  {% endif %}
+
+
+
+
+  <h3 class="text-white mt-5 mb-2">Listado de Plataformas</h3>
+  {% if plataformas %}
+    <ul class="team-list bg-black rounded-2 p-2"> 
+      {% for i in plataformas %}
+        <li class="mb-2 border-2 d-flex justify-content-between container text-break">
+          <div>
+            <strong>+ </strong> {{ i.plataforma }}
+          </div>
+          <div>
+             <a href="{% url 'apps.posts:eliminar_plataforma' pk=i.pk %}" class="btn btn-secondary">Eliminar</a>         
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-white">No hay registros de plataformas.</p>
+  {% endif %}
+
+
+  <h3 class="text-white mt-5 mb-2">Listado de Generos</h3>
+  {% if generos %}
+    <ul class="team-list bg-black rounded-2 p-2"> 
+      {% for i in generos %}
+        <li class=" border-2 d-flex justify-content-between container text-break">
+          <div>
+            <strong>+ </strong> {{ i.genero}}
+          </div>
+          <div>
+             <a href="{% url 'apps.posts:eliminar_genero' pk=i.pk %}" class="btn btn-secondary">Eliminar</a>         
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-white">No hay registros de generos.</p>
+  {% endif %}
+
+
+
+  
 </main>
 {% endblock %}
 
 {% block footer %}
   {% include "partes/footer.html" %}
 {% endblock %}
+
+
+          

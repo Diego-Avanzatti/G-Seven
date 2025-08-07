@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.posts',
     'apps.comentarios',
     'apps.usuarios',
+    'apps.contacto',
 ]
 
 MIDDLEWARE = [
