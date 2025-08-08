@@ -1,43 +1,63 @@
-.container{
-  flex: 1;
-}
-
-form {
-  max-width: 450px;
-  margin: 0 auto;
-  background-color: #fefefe;
-  padding: 25px;
+/* Contenedor principal del formulario */
+.form-container {
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+  padding: 20px 25px;
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  color: white; /* Texto blanco para contraste */
+  max-width: 600px;
+  margin: auto;
 }
 
-.form-label {
+/* Etiquetas */
+.form-container label {
   font-weight: 600;
-  color: #333;
+  margin-bottom: 6px;
+  display: block;
 }
 
-input, select, textarea {
+/* Campos de texto, email, contraseña, etc. */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="file"],
+.form-container textarea,
+.form-container select {
   width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
   font-size: 1rem;
+  margin-bottom: 15px;
+  background-color: #fff;
+  color: #000;
   box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
-input:focus, select:focus, textarea:focus {
+/* Efecto al enfocar */
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
   border-color: #0d6efd;
   outline: none;
-  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
 }
 
-.text-danger {
-  font-size: 0.85rem;
-}
-
-button.btn-primary {
-  width: 100%;
-  padding: 10px;
+/* Botón */
+.form-container button[type="submit"] {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 700;
+  padding: 12px 0;
   font-size: 1.1rem;
-  border-radius: 5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
+
+.form-container button[type="submit"]:hover {
+  background-color: #0847c3;
+}
+
