@@ -20,6 +20,7 @@
 .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="password"],
+.form-container input[type="date"],
 .form-container input[type="file"],
 .form-container textarea,
 .form-container select {
@@ -34,6 +35,7 @@
   box-sizing: border-box;
   transition: border-color 0.3s ease;
 }
+
 
 /* Efecto al enfocar */
 .form-container input:focus,
@@ -61,3 +63,13 @@
   background-color: #0847c3;
 }
 
+/* Ajuste de campo de fecha */
+.form-container input[type="date"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  line-height: normal;
+  padding: 10px 12px; 
+  height: auto;       
+  max-width: 150px;   
+}
