@@ -140,12 +140,18 @@ def listar_posts(request):
     }
     return render(request, 'posts/posts.html', context)
 
-def filtrar_posts(request, tipo, id):
+def filtrar_posts(request, tipo, id=None):
     posts = Post.objects.all()
     if tipo == 'plataforma':
         posts = posts.filter(plataforma = id)
     elif tipo == 'genero':
         posts = posts.filter(genero= id)
+    elif tipo == 'reciente':
+        posts = posts.order_by('-fecha')
+    elif tipo == 'antiguo':
+        posts = posts.order_by('fecha')
+    elif tipo == 'alfabetico':
+        posts = posts.order_by('titulo')
     else:
         raise Http404("Error, entrada incorrecta.")
 
