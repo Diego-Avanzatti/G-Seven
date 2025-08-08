@@ -18,14 +18,16 @@
 {% endblock %}
 
 {% block contenido %}
-<main class="container my-5" style="max-width: 400px;">
-  <h2 class="mb-4 text-center">Iniciar Sesión</h2>
+<main class="container my-5">
+  <h2 class="mb-4">Iniciar Sesión</h2>
 
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary w-100 mt-3">Iniciar Sesión</button>
-  </form>
+  <div class="form-container">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+  </div>
 </main>
 {% endblock %}
 

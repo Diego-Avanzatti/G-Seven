@@ -68,3 +68,4 @@
   overflow-y: hidden;   /* oculta scroll hasta que sea necesario */
   transition: height 0.2s ease; /* transición suave */
 }
+
