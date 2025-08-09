@@ -116,7 +116,7 @@ class EliminarPost(LoginRequiredMixin, DeleteView):
         if user.is_staff or user.is_superuser:
             return super().get_queryset()
         else:
-            return super().get_queryset().filter(usuario=user)
+            return super().get_queryset().filter(creador=user)
 
     def dispatch(self, request, *args, **kwargs):
         queryset = self.get_queryset()
