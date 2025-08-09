@@ -18,15 +18,18 @@
 {% endblock %}
 
 {% block contenido %}
-<main class="container my-5" style="max-width: 400px;">
-  <h2 class="mb-4 text-center">Confirmar eliminación</h2>
+<main class="container w-auto mt-3">
+  <div class="bg-white bg-opacity-75 p-4 rounded shadow mt-4" style="max-width: 500px; margin: auto;">
+    <h2 class="mb-4 text-center">Confirmar eliminación</h2>
+    <p class="text-center text-black">¿Estás seguro de que querés eliminar?</p>
 
-  <p class="text-center">¿Estás seguro de que querés eliminar?</p>
-
-  <form method="post" class="text-center">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger px-5">Sí, eliminar</button>
-  </form>
+    <form method="post" class="text-center">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-danger px-5">Sí, eliminar</button>
+      <a href="{% url 'index'%}" class="btn btn-secondary">Cancelar</a>       
+    </form>
+  </div>
 </main>
 {% endblock %}
 

@@ -23,20 +23,24 @@
         <p>Tu lugar para noticias, reseñas y comunidad gamer</p>
         <div class="hero-buttons">
             <a href="{% url 'apps.posts:posts' %}" class="btn btn-outline">Ver Posts</a>
-            <a href="{% url 'apps.usuarios:iniciar_sesion' %}" class="btn btn-outline">Iniciar Sesión</a>
+            {% if not user.is_authenticated %}
+              <a href="{% url 'apps.usuarios:iniciar_sesion' %}" class="btn btn-outline">Iniciar Sesión</a>
+              <a href="{% url 'apps.contacto:contactos' %}" class="btn btn-outline">Consultas</a>
+            {% endif %}
         </div>
     </div>
   </section>
   <section class="cuerpo p-4  rounded shadow-sm">
     <h3 class="mb-3">Estas son cinco de las plataformas de videojuegos más importantes del mercado:</h3>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 1 %}" >PlayStation (PS5/PS4)</a></li>
-      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 2 %}" >Nintendo (Switch / Switch 2)</a></li>
-      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 3 %}" >Xbox (Series X|S & Game Pass)</a></li>
-      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 4 %}" >PC (Windows / Steam)</a></li>
-      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts' 'plataforma' 5 %}" >Android (móvil)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts_id' 'plataforma' 1 %}" >PlayStation (PS5/PS4)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts_id' 'plataforma' 2 %}" >Nintendo (Switch / Switch 2)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts_id' 'plataforma' 3 %}" >Xbox (Series X|S & Game Pass)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts_id' 'plataforma' 4 %}" >PC (Windows / Steam)</a></li>
+      <li class="list-group-item"><a href="{% url 'apps.posts:filtrar_posts_id' 'plataforma' 5 %}" >Android (móvil)</a></li>
     </ul>
   </section>
+
 
   <section id="equipo" class="container">
     <h2>Integrantes del Equipo 7</h2>
