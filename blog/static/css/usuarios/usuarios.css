@@ -3,14 +3,15 @@
 }
 
 .list-group-item {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background-color: #e0e0e4;
+  border: 1px solid #02070e;
   margin-bottom: 10px;
   border-radius: 5px;
+  color: #04020e;
 }
 
 .list-group-item strong {
-  color: #0d6efd;
+  color: #063c83;
 }
 
 .btn {

@@ -1,11 +1,11 @@
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import redirect, render, resolve_url
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
-from apps.comentarios.models import Comentario
-from apps.posts.models import Post
+from apps.posts.models import Genero, Plataforma, Post
+from apps.contacto.models import Contacto
 from .models import Usuario
 from .forms import RegistroUsuarioForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -41,9 +41,15 @@ class RegistarUsuario(CreateView):
 def listar_usuarios(request):
     if request.user.is_staff or request.user.is_superuser:
         usuarios = Usuario.objects.filter(is_superuser=False, is_staff=False)
+        contactos = Contacto.objects.all()
+        plataformas = Plataforma.objects.all()
+        generos = Genero.objects.all()
 
         context = {
-        'usuarios': usuarios
+        'usuarios': usuarios,
+        'contactos': contactos,
+        'plataformas': plataformas,
+        'generos':generos,
         }
     return render(request, 'usuarios/usuarios.html', context=context)
 
@@ -73,9 +79,10 @@ class DetailUsuario(LoginRequiredMixin, DetailView):
 class ActualizarUsuarios(LoginRequiredMixin, UpdateView):
     model = Usuario
     template_name = 'usuarios/actualizar_usuario.html'
-    fields = ['nombre', 'apellido', 'email', 'fecha_nacimiento', 'imagen']
-    success_url = reverse_lazy('apps.usuarios:usuario')
+    fields = ['username', 'nombre', 'apellido', 'email', 'fecha_nacimiento', 'imagen']
 
+    def get_success_url(self):
+        return reverse_lazy('apps.usuarios:usuario', kwargs={'pk': self.object.pk})
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.pk != self.kwargs.get('pk'):

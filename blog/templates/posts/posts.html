@@ -21,18 +21,28 @@
 {% block contenido %}
 <main class="container my-5">
 
- <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center ">
 
-  {% if user.is_authenticated %}
-    <a href="{% url 'apps.posts:agregar_post'%}" class="btn btn-outline">Agregar Post</a>
-  {% endif %}
-
+{% if user.is_authenticated %}
+ <div class="d-flex gap-3 mb-4 justify-content-center ">
+  <div class="hero-buttons bg-dark bg-opacity-75 p-3 rounded shadow" style="max-width: 650px; margin: auto;">
+    <h4 class="text-white text-center mb-1">“Cada gran historia empieza con un primer posteo”</h4>
+    <a href="{% url 'apps.posts:agregar_post'%}" class="btn btn-outline m-1">Agregar Post</a>
   {% if user.is_staff or user.is_superuser %}
-    <a href="{% url 'apps.posts:agregar_plataforma' %}" class="btn btn-outline">Agregar Plataforma</a>
-    <a href="{% url 'apps.posts:agregar_genero' %}" class="btn btn-outline">Agregar Género</a>
+    <a href="{% url 'apps.posts:agregar_plataforma' %}" class="btn btn-outline m-1">Agregar Plataforma</a>
+    <a href="{% url 'apps.posts:agregar_genero' %}" class="btn btn-outline m-1">Agregar Género</a>
   {% endif %}
-
+  </div>
 </div>
+{% endif %}
+
+<div class="d-flex gap-3 justify-content-center ">
+  <div class="bg-dark p-1 rounded shadow " style= "margin: 0 auto; border-left: 5px solid #0d6efd;">
+    <a href="{% url 'apps.posts:filtrar_posts' 'reciente' %}" class="btn btn-link m-1 text-white">Más reciente</a>
+    <a href="{% url 'apps.posts:filtrar_posts' 'antiguo' %}" class="btn btn-link m-1 text-white">Más antiguo</a>
+    <a href="{% url 'apps.posts:filtrar_posts' 'alfabetico' %}" class="btn btn-link m-1 text-white">Oden alfabético</a>
+  </div>
+</div>
+
 
 {% if page_obj %}
   <ul class="list-group mt-5">

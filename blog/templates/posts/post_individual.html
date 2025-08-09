@@ -26,16 +26,12 @@
         {% if posts.imagen_post %}
           <img src="{{ posts.imagen_post.url }}" alt="Imagen del post" class="img-fluid rounded mt-3" style="max-width: 400px;">
         {% endif %}
-
-
-        {% if user.is_authenticated %}
-          {% if user.is_superuser or user.is_staff %}
-            <form method="post" action="{% url 'apps.posts:eliminar_post' pk=posts.pk %}" class="mt-3">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-secondary">Eliminar Post</button>
-            </form>
-          {% endif %}
+        {% if user.is_superuser or user.is_staff %}
+            <div class="mt-3">
+              <a href="{% url 'apps.posts:eliminar_post' pk=posts.pk %}" class="btn btn-secondary">Eliminar</a>         
+            </div>
         {% endif %}
+     
       </div>
 
       <div class="m-4">
@@ -57,26 +53,19 @@
             <div>
               <strong>{{ comentario.usuario }}</strong>
               <small class="text-white-50 ms-2">{{ comentario.fecha|date:"d M Y H:i" }}</small>
-              <p class="mt-2">{{ comentario.texto }}</p>
+              <p class="mt-2 text-break">{{ comentario.texto }}</p>
             </div>
 
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 m-2">
               {% if user.is_authenticated %}
                 {% if user.is_superuser or user.is_staff %}
-                  <form method="post" action="{% url 'apps.comentarios:eliminar_comentario' pk=comentario.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline">Eliminar</button>
-                  </form>
+                  <a href="{% url 'apps.comentarios:eliminar_comentario' pk=comentario.pk %}" class="btn btn-secondary">Eliminar</a>   
                 {% elif comentario.usuario == user %}
                   <a href="{% url 'apps.comentarios:editar_comentario' pk=comentario.pk %}" class="btn btn-outline ">Editar</a>
-                  <form method="post" action="{% url 'apps.comentarios:eliminar_comentario' pk=comentario.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class=" btn btn-outline text-white">Eliminar</button>
-                  </form>
+                  <a href="{% url 'apps.comentarios:eliminar_comentario' pk=comentario.pk %}" class="btn btn-secondary">Eliminar</a>       
                 {% endif %}
               {% endif %}
             </div>
-
           </li>
         {% endfor %}
       </ul>

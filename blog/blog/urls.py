@@ -18,7 +18,9 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
-from .views import index
+from .views import index, pagina_404
+
+handler404 = pagina_404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +28,7 @@ urlpatterns = [
     path('', include('apps.posts.urls')),
     path('', include('apps.comentarios.urls')),
     path('', include('apps.usuarios.urls')),
+    path('', include('apps.contacto.urls')),
 ]
 
 
