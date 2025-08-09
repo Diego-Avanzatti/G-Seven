@@ -8,9 +8,9 @@
 {% block styles %}
  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
- 
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
   <link rel="stylesheet" href="{% static 'css/posts/agregar_post.css' %}">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
 {% endblock %}
 
 {% block header %}
@@ -18,16 +18,58 @@
 {% endblock %}
 
 {% block contenido %}
-<main class="container my-5" style="max-width: 600px;">
-  <div class="bg-white bg-opacity-75 p-4 rounded shadow mt-4" style="max-width: 600px; margin: auto;">
-    <h2 class="mb-4 text-center">Crear un nuevo Post</h2>
+<main class="container my-5">
+  <h2 class="mb-4">Nuevo Post</h2>
+
+  <div class="form-container">
     <form method="post" enctype="multipart/form-data" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit" class="btn btn-primary mt-3 w-100">Guardar Cambios</button>
+      <button type="submit">Guardar Cambios</button>
     </form>
   </div>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Busca todos los textareas dentro de .form-container (más robusto que buscar por name)
+  const textareas = document.querySelectorAll('.form-container textarea');
+
+  if (!textareas.length) {
+    console.warn('Auto-resize: no se encontró ningún <textarea> dentro de .form-container.');
+    return;
+  }
+
+  textareas.forEach(function (textarea) {
+    // Aseguramos valores iniciales
+    textarea.style.overflowY = 'hidden';
+    textarea.removeAttribute('rows'); // quita rows si existe para no fijar la altura
+
+    const autoResize = function () {
+      // Reiniciar altura, medir scrollHeight y aplicar
+      textarea.style.height = 'auto';
+      const newHeight = textarea.scrollHeight;
+      // Aseguramos no pasar el max-height CSS (si existe)
+      const maxH = parseInt(getComputedStyle(textarea).maxHeight) || null;
+      if (maxH && newHeight > maxH) {
+        textarea.style.height = maxH + 'px';
+        textarea.style.overflowY = 'auto';
+      } else {
+        textarea.style.height = newHeight + 'px';
+        textarea.style.overflowY = 'hidden';
+      }
+    };
+
+    // Eventos
+    textarea.addEventListener('input', autoResize);
+    window.addEventListener('resize', autoResize); // por si cambia el layout
+
+    // Ajuste inicial (por si ya hay contenido)
+    autoResize();
+  });
+});
+</script>
+
 {% endblock %}
 
 {% block footer %}

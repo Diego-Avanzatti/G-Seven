@@ -7,8 +7,8 @@ class Usuario(AbstractUser):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=100)
     email = models.EmailField()
-    fecha_nacimiento = models.DateField('Fecha_nacimiento', default='1990-1-1')
-    es_colaborador = models.BooleanField('Es_colaborador', default=False)
+    fecha_nacimiento = models.DateField('Fecha de nacimiento', default='1990-1-1')
+    es_colaborador = models.BooleanField('Es colaborador', default=False)
     imagen = models.ImageField(null=True, blank= True, upload_to= 'usuarios/', default='usuarios/img_perfil.png')
 
     class Meta:
