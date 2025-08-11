@@ -17,7 +17,7 @@ class AdminRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
 
     def handle_no_permission(self):
         raise Http404()
-    
+
 # CRUD para Género (solo admin puede crear, actualizar y eliminar)
 
 class AgregarGenero(AdminRequiredMixin, CreateView):
@@ -84,7 +84,7 @@ class CrearPost(LoginRequiredMixin, CreateView):
     template_name = 'posts/agregar_post.html'
     success_url = reverse_lazy('index')
 
-    
+
     def form_valid(self, form):
         form.instance.creador = self.request.user
         return super().form_valid(form)
@@ -92,19 +92,27 @@ class CrearPost(LoginRequiredMixin, CreateView):
 class ActualizarPost(LoginRequiredMixin, UpdateView):
     model = Post
     fields = [
-        'titulo', 'subtitulo', 
+        'titulo', 'subtitulo',
         'descripcion', 'genero', 'plataforma',
          'imagen_post'
     ]
     template_name = 'posts/agregar_post.html'
     success_url = reverse_lazy('index')
 
+
     def dispatch(self, request, *args, **kwargs):
         post = self.get_object()
-        if post.usuario == request.user:
+
+        if request.user.is_superuser or request.user.is_staff:
             return super().dispatch(request, *args, **kwargs)
-        raise Http404("No tiene permiso para editar este post.")
-    
+        if post.creador == request.user:
+            return super().dispatch(request, *args, **kwargs)
+        raise Http404("No tenés permiso para editar.")
+
+
+
+
+
 
 class EliminarPost(LoginRequiredMixin, DeleteView):
     model = Post
@@ -130,8 +138,8 @@ class EliminarPost(LoginRequiredMixin, DeleteView):
 # ----- Post(inicio) ------
 
 def listar_posts(request):
-    posts = Post.objects.all() 
-    paginator = Paginator(posts, 4)  
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 4)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -169,7 +177,7 @@ def filtrar_posts(request, tipo, id=None):
 class DetailPost(DetailView):
     model = Post
     template_name = 'posts/post_individual.html'
-    context_object_name = 'posts'  
+    context_object_name = 'posts'
     queryset = Post.objects.all()
 
     def get_context_data(self, **kwargs):
