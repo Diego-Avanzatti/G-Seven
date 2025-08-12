@@ -77,7 +77,18 @@ Carpeta media/ (imagenes)
 
 *Importante: En caso de agregarse nuevos posteos se tendrá que volver a importar la base para mantenerla actualizada. Cada vez que se abra el proyecto, revisar si el archivo .sql fue actualizado. 
 
-Integrantes:
+# Credenciales
+
+usuario común: Usuario
+contraseña: @@@@1234@@@@
+
+usuario admin: UsuarioAdmin
+contraseña: 1234@@@@1234
+
+usuario super:root
+contraseña: root
+
+# Integrantes:
 
 - Antúnez, Pablo
 - Avanzatti, Diego Gabriel
