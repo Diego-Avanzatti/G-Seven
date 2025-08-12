@@ -82,8 +82,10 @@ Carpeta media/ (imagenes)
 usuario común: Usuario
 contraseña: @@@@1234@@@@
 
-usuario admin: UsuarioAdmin
-contraseña: 1234@@@@1234
+1. usuario administrador: UsuarioAdmin
+   contraseña: 1234@@@@1234
+2. Usuario administrador: Administrador
+   Contraseña: admin
 
 usuario super:root
 contraseña: root
